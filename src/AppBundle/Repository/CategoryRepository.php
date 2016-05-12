@@ -10,5 +10,18 @@ namespace AppBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function queryAllCategories()
+    {
+        return $this->createQueryBuilder('c')
+            ->addOrderBy('c.createdAt','DESC')
+            ->leftJoin('c.categoryname','categoryname')
+            ->addSelect('categoryname')
+            ->getQuery()
+            ;
+    }
 
+    public function allCategories()
+    {
+        return $this->queryAllCategories()->execute();
+    }
 }

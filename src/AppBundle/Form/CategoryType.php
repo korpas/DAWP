@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 class CategoryType extends AbstractType
@@ -13,8 +14,8 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('categoryname', TextType::class, ['error_bubbling' => true, 'attr' => ['class' => 'anyClass']])
-
+            ->add('categoryname', TextType::class)
+            ->add('submit', SubmitType::class, ['label' => $options['submit_label']])
 
         ;
     }
@@ -24,6 +25,7 @@ class CategoryType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class' => 'AppBundle\Entity\Category',
+                'submit_label'=>'Nueva Categoria',
             ]
         );
 
