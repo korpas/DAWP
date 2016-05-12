@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1>Le Trueque</h1>
+    <ul>
+        <li><a href="{{ path('app_products_index') }}">Productos</a>   </li>
+        <li><a href="{{ path('app_messages_index') }}">Mensajes</a>   </li>
+        <li><a href="{{ path('app_category_insert') }}">Category</a>   </li>
+        <li><a href="{{ path('app_assessments_insert') }}">Valoraciones</a>   </li>
+        <li><a href="{{ path('app_index_upload') }}">upload</a>   </li>
+
+
+    </ul>
+{% endblock %}
