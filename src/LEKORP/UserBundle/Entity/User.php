@@ -48,6 +48,7 @@ class User extends BaseUser
         parent::__construct();
         $this->createdAt    = new \DateTime();
         $this->updatedAt    = $this->createdAt;
+        $this->leproducts = new ArrayCollection();
 
     }
 

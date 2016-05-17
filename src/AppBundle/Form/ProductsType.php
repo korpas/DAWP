@@ -20,11 +20,6 @@ class ProductsType extends AbstractType
             ->add('productname', TextType::class, ['error_bubbling' => true, 'attr' => ['class' => 'anyClass']])
             ->add('description', TextareaType::class, ['error_bubbling' => true])
             ->add('price', MoneyType::class, ['error_bubbling' => true])
-            ->add('categories', EntityType::class,
-                array(
-                'class'=> 'AppBundle:Category',
-                'choice_label'=>'categoryname', "multiple"=> true
-            ))
             ->add('save', SubmitType::class,
                 array('label'=>'Insertar Producto'))
 

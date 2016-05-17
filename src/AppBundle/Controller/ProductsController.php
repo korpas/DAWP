@@ -2,13 +2,16 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\Form\ProductsType;
-use AppBundle\Entity\Products;
-use Symfony\Component\HttpFoundation\Request;
 
+use AppBundle\Entity\Products;
+use AppBundle\Entity\Category;
+use AppBundle\Form\ProductsType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use LEKORP\UserBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 class ProductsController extends Controller
 {
     /**
@@ -38,83 +41,26 @@ class ProductsController extends Controller
      */
     public function insertAction()
     {
-        $product = new Products();
-        $form = $this->createForm(ProductsType::class, $product);
-        return $this->render(':products:insert.html.twig',
-            [
-                'form'      => $form->createView(),
-                'action'    => $this->generateUrl('app_products_do-insert')
-            ]
-        );
+        $p = new Products(Request $request);
+        $form = $this->createForm(ProductsType::class, $p);
+
+        if ($request->getMethod() == Request::METHOD_POST) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $m = $this->getDoctrine()->getManager();
+                $catRepo = $m->getRepository('AppBundle:Category');
+                $p->setOwner($this->getOwner());
+                $m->persist($p);
+                $m->flush();
+                return $this->redirectToRoute('app_products_index');
+            }
+        }
+        return $this->render(':product:insert.html.twig', [
+            'form'  => $form->createView(),
+            'title' => 'New Product',
+        ]);
     }
 
-    /**
-     * @Route("/products_do-insert", name="app_products_do-insert")
-     */
-    public function doInsert(Request $request)
-    {
-        $product = new Products();
-        $form = $this->createForm(ProductsType::class, $product);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $m = $this->getDoctrine()->getManager();
-            $m->persist($product);
-            $m->flush();
-            $this->addFlash('messages', 'Tu producto ha sido añadido');
-            return $this->redirectToRoute('app_products_index');
-        }
-        $this->addFlash('messages', 'Review your form data');
-        return $this->render(':products:insert.html.twig',
-            [
-                'form'      => $form->createView(),
-                'action'    => $this->generateUrl('app_products_do-insert')
-            ]
-        );
-    }
-
-    /**
-     * @Route("/products_update/{id}", name="app_products_update")
-     */
-    public function updateAction($id)
-    {
-        $m = $this->getDoctrine()->getManager();
-        $repository = $m->getRepository('AppBundle:Products');
-        $asd = $repository->find($id);
-        $form = $this->createForm(ProductsType::class, $asd);
-        return $this->render(':products:insert.html.twig',
-            [
-                'form'      => $form->createView(),
-                'action'    => $this->generateUrl('app_products_do-update', ['id' => $id])
-            ]
-        );
-    }
-    /**
-     * @Route("/products_do-update/{id}", name="app_products_do-update")
-     *
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function doUpdateAction($id, Request $request)
-    {
-        $m          = $this->getDoctrine()->getManager();
-        $repository = $m->getRepository('AppBundle:Products');
-        $product      = $repository->find($id);
-        $form       = $this->createForm(ProductsType::class, $product);
-        // user is updated with incoming data
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $m->flush();
-            $this->addFlash('messages', 'Actualizado');
-            return $this->redirectToRoute('app_products_index');
-        }
-        $this->addFlash('messages', 'Review your form');
-        return $this->render(':products:insert.html.twig',
-            [
-                'form'      => $form->createView(),
-                'action'    => $this->generateUrl('app_products_index', ['id' => $id]),
-            ]
-        );
-    }
     /**
      *
      * @Route("/products_remove/{id}", name="app_products_remove")

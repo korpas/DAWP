@@ -20,6 +20,7 @@ class MessagesType extends AbstractType
         $builder
             ->add('issue', TextType::class, ['error_bubbling' => true, 'attr' => ['class' => 'anyClass']])
             ->add('content', TextareaType::class, ['error_bubbling' => true])
+            ->add('')
             ->add('save', SubmitType::class,
                 array('label'=>'Insertar Producto'))
         ;
