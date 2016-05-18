@@ -78,7 +78,7 @@ class Products
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity="LEKORP\UserBundle\Entity\User",  cascade={"remove"}, inversedBy="leproducts")
+     * @ORM\ManyToOne(targetEntity="LEKORP\UserBundle\Entity\User",  cascade={"remove"}, inversedBy="leproducts")
      */
     private $owner;
 
@@ -256,25 +256,14 @@ class Products
     /**
      * Get categories
      *
-     * @param \Doctrine\Common\Collections\ArrayCollection  $categories
+     * @return \Doctrine\Common\Collections\ArrayCollection  $categories
      *
-     * @return Products
-     */
-    public function getCategories($categories)
-    {
-        $this->categories = $categories;
-    }
-
-
-    /**
-     * Get categories
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getCategories()
     {
         return $this->categories;
     }
+
     public function __toString()
     {
         return $this->productname;

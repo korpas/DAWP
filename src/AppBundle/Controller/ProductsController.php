@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use LEKORP\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 class ProductsController extends Controller
@@ -39,9 +40,9 @@ class ProductsController extends Controller
     /**
      * @Route("/products_insert", name="app_products_insert")
      */
-    public function insertAction()
+    public function insertAction(Request $request)
     {
-        $p = new Products(Request $request);
+        $p = new Products();
         $form = $this->createForm(ProductsType::class, $p);
 
         if ($request->getMethod() == Request::METHOD_POST) {
@@ -49,13 +50,13 @@ class ProductsController extends Controller
             if ($form->isValid()) {
                 $m = $this->getDoctrine()->getManager();
                 $catRepo = $m->getRepository('AppBundle:Category');
-                $p->setOwner($this->getOwner());
+                $p->setOwner($this->getUser());
                 $m->persist($p);
                 $m->flush();
                 return $this->redirectToRoute('app_products_index');
             }
         }
-        return $this->render(':product:insert.html.twig', [
+        return $this->render(':products:insert.html.twig', [
             'form'  => $form->createView(),
             'title' => 'New Product',
         ]);
