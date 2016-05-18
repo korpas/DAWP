@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
 
@@ -20,7 +21,10 @@ class MessagesType extends AbstractType
         $builder
             ->add('issue', TextType::class, ['error_bubbling' => true, 'attr' => ['class' => 'anyClass']])
             ->add('content', TextareaType::class, ['error_bubbling' => true])
-            ->add('')
+            ->add('categories', EntityType::class, array(
+                'class' => 'AppBundle:User',
+                'choice_label' => 'categoryname',
+            ))
             ->add('save', SubmitType::class,
                 array('label'=>'Insertar Producto'))
         ;
@@ -29,6 +33,12 @@ class MessagesType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setDefaults(
+            [
+                'data_class' => 'AppBundle\Entity\User',' AppBundle\Entity\Messages',
+
+            ]
+        );
 
     }
 

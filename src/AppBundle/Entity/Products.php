@@ -73,12 +73,13 @@ class Products
     private $categories;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="prodimg")
+
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Image",cascade={"persist"}, inversedBy="prodimg")
      */
     private $images;
 
     /**
-     * @ORM\ManyToOne(targetEntity="LEKORP\UserBundle\Entity\User",  cascade={"remove"}, inversedBy="leproducts")
+     * @ORM\ManyToOne(targetEntity="LEKORP\UserBundle\Entity\User", cascade={"persist"}), inversedBy="leproducts")
      */
     private $owner;
 
@@ -86,7 +87,7 @@ class Products
 
     public function __construct()
     {
-        $this->images     = new ArrayCollection();
+
         $this->categories = new ArrayCollection();
         $this->createdAt  = new \DateTime();
         $this->updatedAt  = new \DateTime("now");
@@ -273,25 +274,25 @@ class Products
      */
 
     /**
-     * Add image
+     * Add images
      *
-     * @param \AppBundle\Entity\Image $image
+     * @param \AppBundle\Entity\Image $prodimg
      *
      * @return Products
      */
-    public function addImage(\AppBundle\Entity\Image $image)
+    public function setImages(\AppBundle\Entity\Image $prodimg)
     {
-        $this->images[] = $image;
+        $this->images[] = $prodimg;
         return $this;
     }
     /**
-     * Remove image
+     * Remove images
      *
-     * @param \AppBundle\Entity\Image $image
+     * @param \AppBundle\Entity\Image $prodimg
      */
-    public function removeImage(\AppBundle\Entity\Image $image)
+    public function removeImages(\AppBundle\Entity\Image $images)
     {
-        $this->images->removeElement($image);
+        $this->images->removeElement($images);
     }
     /**
      * Get images

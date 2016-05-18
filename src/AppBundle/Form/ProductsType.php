@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 
 class ProductsType extends AbstractType
@@ -28,6 +29,12 @@ class ProductsType extends AbstractType
              'multiple' =>  true,
                 'expanded' => true
     ))
+            ->add('imageFile', VichFileType::class, array(
+                'required'      => false,
+                'allow_delete'  => true,
+                'download_link' => true,
+            ))
+
             ->add('save', SubmitType::class,
                 array('label'=>'Insertar Producto '))
 
@@ -39,7 +46,7 @@ class ProductsType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'AppBundle\Entity\Products',' AppBundle\Entity\Category'
+                'data_class' => 'AppBundle\Entity\Products',' AppBundle\Entity\Category','AppBundle\Entity\Image'
 
             ]
         );

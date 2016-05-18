@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -26,6 +27,7 @@ class Image
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="image_upload", fileNameProperty="imageName")
+
      *
      * @var File
      */
@@ -46,12 +48,13 @@ class Image
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Products",  cascade={"remove"}, inversedBy="images")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Products", mappedBy="images")
      */
     private $prodimg;
 
     public function __construct()
     {
+        $this->prodimg = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime("now");
     }
@@ -105,5 +108,36 @@ class Image
     public function getImageName()
     {
         return $this->imageName;
+    }
+
+    /**
+     * Set prodimg
+     *
+     * @param \AppBundle\Entity\Products $images
+     *
+     * @return Image
+     */
+    public function setProdimg(\AppBundle\Entity\Products $images)
+    {
+        $this->prodimg[] = $images;
+        return $this;
+    }
+    /**
+     * Remove image
+     *
+     * @param \AppBundle\Entity\Products $images
+     */
+    public function removeProdimg(\AppBundle\Entity\Products $images)
+    {
+        $this->prodimg->removeElement($images);
+    }
+    /**
+     * Get prodimg
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProdimg()
+    {
+        return $this->prodimg;
     }
 }
