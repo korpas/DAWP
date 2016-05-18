@@ -46,7 +46,7 @@ class Category
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Products",  cascade={"persist"}, inversedBy="categories")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Products", cascade={"persist"}, mappedBy="categories")
      */
     private $products;
 

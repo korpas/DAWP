@@ -68,7 +68,7 @@ class Products
 
     /**
      * @var ArrayCollection $categories
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Category", mappedBy="products")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Category",cascade={"persist"}, inversedBy="products")
      */
     private $categories;
 

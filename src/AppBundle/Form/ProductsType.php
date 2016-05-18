@@ -23,8 +23,11 @@ class ProductsType extends AbstractType
             ->add('description', TextareaType::class, ['error_bubbling' => true])
             ->add('price', MoneyType::class, ['error_bubbling' => true])
             ->add('categories', EntityType::class, array(
-             'class' => 'AppBundle:Products',
-             'choice_label' => 'Categoria'))
+             'class' => 'AppBundle:Category',
+             'choice_label' => 'categoryname',
+             'multiple' =>  true,
+                'expanded' => true
+    ))
             ->add('save', SubmitType::class,
                 array('label'=>'Insertar Producto '))
 
@@ -36,7 +39,8 @@ class ProductsType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'AppBundle\Entity\Products',
+                'data_class' => 'AppBundle\Entity\Products',' AppBundle\Entity\Category'
+
             ]
         );
 
@@ -45,5 +49,8 @@ class ProductsType extends AbstractType
     public function getName()
     {
         return 'app_bundle_products_type';
+
     }
+
+
 }

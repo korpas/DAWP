@@ -43,6 +43,9 @@ class ProductsController extends Controller
     public function insertAction(Request $request)
     {
         $p = new Products();
+
+
+
         $form = $this->createForm(ProductsType::class, $p);
 
         if ($request->getMethod() == Request::METHOD_POST) {
@@ -50,7 +53,9 @@ class ProductsController extends Controller
             if ($form->isValid()) {
                 $m = $this->getDoctrine()->getManager();
                 $catRepo = $m->getRepository('AppBundle:Category');
+                $proRepo = $m->getRepository('AppBundle:Products');
                 $p->setOwner($this->getUser());
+
                 $m->persist($p);
                 $m->flush();
                 return $this->redirectToRoute('app_products_index');
