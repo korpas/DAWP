@@ -29,11 +29,7 @@ class ProductsType extends AbstractType
              'multiple' =>  true,
                 'expanded' => true
     ))
-            ->add('imageFile', VichFileType::class, array(
-                'required'      => false,
-                'allow_delete'  => true,
-                'download_link' => true,
-            ))
+
 
             ->add('save', SubmitType::class,
                 array('label'=>'Insertar Producto '))

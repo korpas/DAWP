@@ -34,7 +34,7 @@ class MessagesController extends Controller
     }
 
     /**
-     * @Route("/messages_do-insert", name="app_messages_do-insert")
+     * @Route("/messages_do-insert", name="app_messages_insert")
      */
     public function insertAction(Request $request)
     {
@@ -49,7 +49,7 @@ class MessagesController extends Controller
             if ($form->isValid()) {
                 $m = $this->getDoctrine()->getManager();
                 $mesRepo = $m->getRepository('AppBundle:Messages');
-
+                $m->setUsers($this->getUser());
 
                 $m->persist($p);
                 $m->flush();

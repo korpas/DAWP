@@ -10,4 +10,38 @@ namespace AppBundle\Repository;
  */
 class MessagesRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function queryAllMessages()
+    {
+        return $this->createQueryBuilder('m')
+            ->addOrderBy('m.createdAt','DESC')
+            ->leftJoin('m.issue','issue')
+            ->addSelect('issue')
+            ->addOrderBy('m.content','DESC')
+            ->leftJoin('m.content','content')
+            ->addSelect('content')
+            ->getQuery()
+            ;
+    }
+
+    public function allMessages()
+    {
+        return $this->queryAllMessages()->execute();
+    }
+
+    public function queryMessagesByUserId($id)
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->leftJoin('m.users', 'users') // use contextual help to see the associations
+            ->andWhere('users.id = :id')
+            ->setParameter('id', $id)
+            ->addOrderBy('m.createdAt', 'DESC')
+            ->addSelect('users') // avoid lazy loading in views
+            ->getQuery()
+        ;
+        return $qb;
+    }
+    public function messagesByUserId($id)
+    {
+        return $this->queryMessagesByUserId($id)->execute();
+    }
 }

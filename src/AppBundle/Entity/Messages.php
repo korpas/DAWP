@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,11 +52,16 @@ class Messages
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="\LEKORP\UserBundle\Entity\User", cascade={"persist"}, mappedBy="messages")
+     */
+    private $users;
+
 
 
     public function __construct()
     {
-
+        $this->users = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime("now");
     }
@@ -171,6 +177,33 @@ class Messages
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+
+    public function addUsers(\LEKORP\UserBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+        return $this;
+    }
+    /**
+     * Remove user
+     *
+     * @param \LEKORP\UserBundle\Entity\User $user
+     */
+    public function removeUser($user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection  $users
+     *
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 
 

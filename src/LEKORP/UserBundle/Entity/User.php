@@ -39,12 +39,17 @@ class User extends BaseUser
      */
     private $leproducts;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Messages", cascade={"persist"}), inversedBy="users")
+     */
+    private $messages;
+
 
 
 
     public function __construct()
     {
-
+        $this->messages = new ArrayCollection();
         parent::__construct();
         $this->createdAt    = new \DateTime();
         $this->updatedAt    = $this->createdAt;
@@ -93,6 +98,39 @@ class User extends BaseUser
     public function __toString()
     {
         return $this->username;
+    }
+
+    /**
+     * Add message
+     *
+     * @param \AppBundle\Entity\Messages $message
+     *
+     * @return User
+     */
+    public function addMessage(\AppBundle\Entity\Messages $message)
+    {
+        $this->messages[] = $message;
+        return $this;
+    }
+    /**
+     * Remove message
+     *
+     * @param \AppBundle\Entity\Messages $message
+     */
+    public function removeMessages($message)
+    {
+        $this->messages->removeElement($message);
+    }
+
+    /**
+     * Get messages
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection  $messages
+     *
+     */
+    public function getMessages()
+    {
+        return $this->messages;
     }
 
 }
