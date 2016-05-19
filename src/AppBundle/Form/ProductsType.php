@@ -4,6 +4,8 @@ namespace AppBundle\Form;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
+use AppBundle\Form\ImageType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -29,11 +31,13 @@ class ProductsType extends AbstractType
              'multiple' =>  true,
                 'expanded' => true
     ))
-            ->add('imageFile', VichFileType::class, array(
-                'required'      => false,
-                'allow_delete'  => true,
-                'download_link' => true,
-            ))
+            ->add('prodFile',CollectionType::class, array(
+
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'by_reference' => false,
+                )
+            )
 
             ->add('save', SubmitType::class,
                 array('label'=>'Insertar Producto '))
