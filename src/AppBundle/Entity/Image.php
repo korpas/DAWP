@@ -49,24 +49,18 @@ class Image
     private $updatedAt;
 
     /**
-     * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     *
-     * @Vich\UploadableField(mapping="image_upload", fileNameProperty="prodimg")
-
-     *
-     * @var File
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Products", inversedBy="prodimg")
      */
-    private $prodFile;
-
+    private $prodimgs;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Products", mappedBy="images")
+     * @ORM\OneToOne(targetEntity="LEKORP\UserBundle\Entity\User")
      */
-    private $prodimg;
+    private $imgprofile;
 
     public function __construct()
     {
-        $this->prodimg = new ArrayCollection();
+        $this->prodimgs = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime("now");
     }
@@ -102,37 +96,7 @@ class Image
         return $this->imageFile;
     }
 
-    /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
-     *
-     * @return Products
-     */
-    public function setProdFile(File $image = null)
-    {
-        $this->prodFile = $image;
 
-        if ($image) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTime('now');
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return File
-     */
-    public function getProdFile()
-    {
-        return $this->prodFile;
-    }
 
 
     /**
@@ -162,27 +126,47 @@ class Image
      *
      * @return Image
      */
-    public function setProdimg(\AppBundle\Entity\Products $images)
+    public function setProdimgs(\AppBundle\Entity\Products $images)
     {
-        $this->prodimg[] = $images;
+        $this->prodimgs[] = $images;
         return $this;
     }
     /**
-     * Remove image
+     * Remove images
      *
      * @param \AppBundle\Entity\Products $images
      */
-    public function removeProdimg(\AppBundle\Entity\Products $images)
+    public function removeProdimgs(\AppBundle\Entity\Products $images)
     {
-        $this->prodimg->removeElement($images);
+        $this->prodimgs->removeElement($images);
     }
     /**
-     * Get prodimg
+     * Get prodimgs
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getProdimg()
+    public function getProdimgs()
     {
-        return $this->prodimg;
+        return $this->prodimgs;
     }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getImgprofile()
+    {
+        return $this->imgprofile;
+    }
+
+    /**
+     * @param mixed $imgprofile
+     */
+    public function setImgprofile($imgprofile)
+    {
+        $this->imgprofile = $imgprofile;
+    }
+
+
 }

@@ -7,6 +7,7 @@ imports:
     - { resource: fos/user.yml }
     - { resource: knp/paginator.yml }
     - { resource: vich/uploader.yml }
+    - { resource: vich/Products.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration

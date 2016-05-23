@@ -73,13 +73,20 @@ class Products
     private $categories;
 
     /**
-
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Image",cascade={"persist"}, inversedBy="prodimg")
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="image_product_upload", fileNameProperty="prodimg")
+     *
+     * @var File
      */
-    private $images;
+    private $prodFile;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image",cascade={"persist"}, mappedBy="prodimgs")
+     */
+    private $prodimg;
 
     /**
-     * @ORM\ManyToOne(targetEntity="LEKORP\UserBundle\Entity\User", cascade={"persist"}), inversedBy="leproducts")
+     * @ORM\ManyToOne(targetEntity="LEKORP\UserBundle\Entity\User", cascade={"persist"}, inversedBy="leproducts")
      */
     private $owner;
 
@@ -92,6 +99,38 @@ class Products
         $this->createdAt  = new \DateTime();
         $this->updatedAt  = new \DateTime("now");
 
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     *
+     * @return Products
+     */
+    public function setProdFile(File $image = null)
+    {
+        $this->prodFile = $image;
+
+        if ($image) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getProdFile()
+    {
+        return $this->prodFile;
     }
 
 
@@ -269,44 +308,33 @@ class Products
     {
         return $this->productname;
     }
+
+    /**
+     * Get prodimg
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection  $prodimg
+     *
+     */
+    public function getProdimg()
+    {
+        return $this->prodimg;
+    }
+
+    /**
+     * Add img
+     *
+     * @param \AppBundle\Entity\Image $img
+     *
+     * @return Products
+     */
+    public function setProdimg($img)
+    {
+        $this->prodimg = $img;
+    }
     /**
      * @return string
      */
 
-    /**
-     * Add images
-     *
-     * @param \AppBundle\Entity\Image $prodimg
-     *
-     * @return Products
-     */
-    public function setImages(\AppBundle\Entity\Image $prodimg)
-    {
-        $this->images[] = $prodimg;
-        return $this;
-    }
-    /**
-     * Remove images
-     *
-     * @param \AppBundle\Entity\Image $prodimg
-     */
-    public function removeImages(\AppBundle\Entity\Image $images)
-    {
-        $this->images->removeElement($images);
-    }
-    /**
-     * Get images
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getImages()
-    {
-        return $this->images;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getOwner()
     {
         return $this->owner;
