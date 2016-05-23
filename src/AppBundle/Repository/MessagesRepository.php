@@ -30,18 +30,52 @@ class MessagesRepository extends \Doctrine\ORM\EntityRepository
 
     public function queryMessagesByUserId($id)
     {
-        $qb = $this->createQueryBuilder('m')
-            ->leftJoin('m.users', 'users') // use contextual help to see the associations
+        $query = $this->createQueryBuilder('m')
+            ->leftJoin('m.users','users')
+            //->addSelect('users')
+
+            //->addSelect('users2')
+            ->addOrderBy('m.createdAt','DESC')
             ->andWhere('users.id = :id')
-            ->setParameter('id', $id)
-            ->addOrderBy('m.createdAt', 'DESC')
-            ->addSelect('users') // avoid lazy loading in views
+
+            ->setParameter('id',$id)
             ->getQuery()
         ;
-        return $qb;
+
+        //var_dump($query->getDQL());die;
+        //var_dump($query->getSQL());die;
+
+        return $query;
+
+
     }
     public function messagesByUserId($id)
     {
         return $this->queryMessagesByUserId($id)->execute();
     }
+
+    public function queryMessagesByUserId2($id2)
+    {
+        $query = $this->createQueryBuilder('m')
+            ->leftJoin('m.users2','users2')
+            //->addSelect('users2')
+            ->addOrderBy('m.createdAt','DESC')
+            ->andWhere('users2.id = :id')
+
+            ->setParameter('id',$id2)
+            ->getQuery()
+        ;
+
+        //var_dump($query->getDQL());die;
+        //var_dump($query->getSQL());die;
+
+        return $query;
+
+
+    }
+    public function messagesByUserId2($id2)
+    {
+        return $this->queryMessagesByUserId2($id2)->execute();
+    }
+
 }

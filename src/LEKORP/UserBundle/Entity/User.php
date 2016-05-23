@@ -40,9 +40,14 @@ class User extends BaseUser
     private $leproducts;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Messages", cascade={"persist"}), inversedBy="users")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Messages",  cascade={"remove"}, mappedBy="users")
      */
     private $messages;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Messages", cascade={"remove"}, mappedBy="users2")
+     */
+    private $messages2;
 
 
 
@@ -50,6 +55,7 @@ class User extends BaseUser
     public function __construct()
     {
         $this->messages = new ArrayCollection();
+        $this->messages2 = new ArrayCollection();
         parent::__construct();
         $this->createdAt    = new \DateTime();
         $this->updatedAt    = $this->createdAt;
@@ -132,5 +138,40 @@ class User extends BaseUser
     {
         return $this->messages;
     }
+
+    /**
+     * Add message2
+     *
+     * @param \AppBundle\Entity\Messages $message2
+     *
+     * @return User
+     */
+    public function addMessage2(\AppBundle\Entity\Messages $message2)
+    {
+        $this->messages2[] = $message2;
+        return $this;
+    }
+    /**
+     * Remove message2
+     *
+     * @param \AppBundle\Entity\Messages $message2
+     */
+    public function removeMessages2($message2)
+    {
+        $this->messages2->removeElement($message2);
+    }
+
+    /**
+     * Get messages
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection  $messages2
+     *
+     */
+    public function getMessages2()
+    {
+        return $this->messages2;
+    }
+
+
 
 }

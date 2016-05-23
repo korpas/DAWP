@@ -53,15 +53,24 @@ class Messages
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\LEKORP\UserBundle\Entity\User", cascade={"persist"}, mappedBy="messages")
+
+     * @ORM\ManyToOne(targetEntity="\LEKORP\UserBundle\Entity\User", cascade={"persist"}, inversedBy="messages")
      */
     private $users;
+
+    /**
+
+     * @ORM\ManyToOne(targetEntity="\LEKORP\UserBundle\Entity\User", cascade={"persist"}, inversedBy="messages2")
+     */
+    private $users2;
 
 
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+
+
+
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime("now");
     }
@@ -179,31 +188,36 @@ class Messages
         return $this->updatedAt;
     }
 
-
-    public function addUsers(\LEKORP\UserBundle\Entity\User $user)
-    {
-        $this->users[] = $user;
-        return $this;
-    }
     /**
-     * Remove user
-     *
-     * @param \LEKORP\UserBundle\Entity\User $user
-     */
-    public function removeUser($user)
-    {
-        $this->users->removeElement($user);
-    }
-
-    /**
-     * Get users
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection  $users
-     *
+     * @return mixed
      */
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * @param mixed $users
+     */
+    public function setUsers($users)
+    {
+        $this->users = $users;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsers2()
+    {
+        return $this->users2;
+    }
+
+    /**
+     * @param mixed $users2
+     */
+    public function setUsers2($users2)
+    {
+        $this->users2 = $users2;
     }
 
 
