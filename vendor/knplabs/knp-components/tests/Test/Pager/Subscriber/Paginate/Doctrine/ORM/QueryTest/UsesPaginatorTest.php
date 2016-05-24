@@ -2,14 +2,17 @@
 
 namespace Test\Pager\Subscriber\Paginate\Doctrine\ORM\QueryTest;
 
-use Doctrine\ORM\Query;
-use Knp\Component\Pager\Event\Subscriber\Paginate\Doctrine\ORM\QuerySubscriber;
-use Knp\Component\Pager\Event\Subscriber\Paginate\Doctrine\ORM\QuerySubscriber\UsesPaginator;
+use Test\Tool\BaseTestCaseORM;
 use Knp\Component\Pager\Paginator;
+use Knp\Component\Pager\Pagination\SlidingPagination;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\Event\Subscriber\Paginate\Doctrine\ORM\QuerySubscriber;
+use Knp\Component\Pager\Event\Subscriber\Paginate\PaginationSubscriber;
 use Test\Fixture\Entity\Shop\Product;
 use Test\Fixture\Entity\Shop\Tag;
-use Test\Tool\BaseTestCaseORM;
+use Doctrine\ORM\Query;
+use Knp\Component\Pager\Event\Subscriber\Paginate\Doctrine\ORM\QuerySubscriber\UsesPaginator;
 
 class UsesPaginatorTest extends BaseTestCaseORM
 {

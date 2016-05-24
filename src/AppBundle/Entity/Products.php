@@ -75,13 +75,13 @@ class Products
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="image_product_upload", fileNameProperty="prodimg")
+     * @Vich\UploadableField(mapping="image_upload", fileNameProperty="prodimg")
      *
-     * @var File
-     */
-    private $prodFile;
+     * @var File $prodFile
+    */
+    protected $prodFile;
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image",cascade={"persist"}, mappedBy="prodimgs")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image",cascade={"persist"}, mappedBy="prodimgs")
      */
     private $prodimg;
 
@@ -312,7 +312,7 @@ class Products
     /**
      * Get prodimg
      *
-     * @return \Doctrine\Common\Collections\ArrayCollection  $prodimg
+     * @return \Doctrine\Common\Collections\Collection  $prodimg
      *
      */
     public function getProdimg()

@@ -48,10 +48,6 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Messages", cascade={"remove"}, mappedBy="users2")
      */
     private $messages2;
-    /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", mappedBy="imgprofile")
-     */
-    private $usrimg;
 
 
     public function __construct()

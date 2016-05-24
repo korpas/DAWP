@@ -11,8 +11,8 @@
 
 namespace Sensio\Bundle\GeneratorBundle\Manipulator;
 
-use Sensio\Bundle\GeneratorBundle\Generator\DoctrineCrudGenerator;
 use Symfony\Component\DependencyInjection\Container;
+use Sensio\Bundle\GeneratorBundle\Generator\DoctrineCrudGenerator;
 use Symfony\Component\Yaml\Yaml;
 
 /**

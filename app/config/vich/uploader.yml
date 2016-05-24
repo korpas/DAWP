@@ -1,3 +1,4 @@
+# app/config/config.yml
 vich_uploader:
     db_driver: orm
 

@@ -11,11 +11,11 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\TranslationUpdateCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\DependencyInjection;
+use Symfony\Bundle\FrameworkBundle\Command\TranslationUpdateCommand;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\DependencyInjection;
 use Symfony\Component\HttpKernel;
 
 class TranslationUpdateCommandTest extends \PHPUnit_Framework_TestCase

@@ -55,6 +55,7 @@ class ProductsController extends Controller
                 $catRepo = $m->getRepository('AppBundle:Category');
                 $proRepo = $m->getRepository('AppBundle:Products');
                 $p->setOwner($this->getUser());
+
                 $m->persist($p);
                 $m->flush();
                 return $this->redirectToRoute('app_products_index');
@@ -78,5 +79,7 @@ class ProductsController extends Controller
         $m->flush();
         $this->addFlash('messages', 'Eliminado');
         return $this->redirectToRoute('app_products_index');
+
+
     }
 }

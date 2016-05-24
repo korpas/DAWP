@@ -2,11 +2,11 @@
 
 namespace Test\Pager\Subscriber\Paginate\Doctrine\ORM;
 
-use Doctrine\ORM\Query;
-use Knp\Component\Pager\Event\Subscriber\Paginate\Doctrine\ORM\QuerySubscriber\UsesPaginator;
+use Test\Tool\BaseTestCaseORM;
 use Knp\Component\Pager\Paginator;
 use Test\Fixture\Entity\Composite;
-use Test\Tool\BaseTestCaseORM;
+use Knp\Component\Pager\Event\Subscriber\Paginate\Doctrine\ORM\QuerySubscriber\UsesPaginator;
+use Doctrine\ORM\Query;
 
 class CompositeKeyTest extends BaseTestCaseORM
 {

@@ -18,9 +18,9 @@
 
 namespace ProxyManagerTest\ProxyGenerator\RemoteObject\MethodGenerator;
 
+use ReflectionClass;
 use PHPUnit_Framework_TestCase;
 use ProxyManager\ProxyGenerator\RemoteObject\MethodGenerator\MagicIsset;
-use ReflectionClass;
 
 /**
  * Tests for {@see \ProxyManager\ProxyGenerator\RemoteObject\MethodGenerator\MagicIsset}

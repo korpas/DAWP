@@ -11,8 +11,8 @@
 
 namespace Sensio\Bundle\FrameworkExtraBundle\Tests\DependencyInjection;
 
-use Sensio\Bundle\FrameworkExtraBundle\DependencyInjection\Compiler\LegacyPass;
 use Sensio\Bundle\FrameworkExtraBundle\DependencyInjection\SensioFrameworkExtraExtension;
+use Sensio\Bundle\FrameworkExtraBundle\DependencyInjection\Compiler\LegacyPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;

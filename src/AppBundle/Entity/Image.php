@@ -49,7 +49,7 @@ class Image
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Products", inversedBy="prodimg")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Products", inversedBy="prodimg")
      */
     private $prodimgs;
 
@@ -60,7 +60,7 @@ class Image
 
     public function __construct()
     {
-        $this->prodimgs = new ArrayCollection();
+
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime("now");
     }
@@ -128,7 +128,7 @@ class Image
      */
     public function setProdimgs(\AppBundle\Entity\Products $images)
     {
-        $this->prodimgs[] = $images;
+        $this->prodimgs = $images;
         return $this;
     }
     /**

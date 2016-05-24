@@ -27,15 +27,16 @@ class ProductsType extends AbstractType
              'class' => 'AppBundle:Category',
              'choice_label' => 'categoryname',
              'multiple' =>  true,
-                'expanded' => true
+             'expanded' => true
     ))
 
-            ->add('prodFile', VichImageType::class,array(
+            ->add('prodFile', VichImageType::class,[
                 'required'      => false,
                 'allow_delete'  => true, // not mandatory, default is true
                 'download_link' => true, // not mandatory, default is true
-            //
-            ))
+
+            ])
+
 
 
             ->add('save', SubmitType::class,
@@ -49,7 +50,7 @@ class ProductsType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'AppBundle\Entity\Products',' AppBundle\Entity\Category','AppBundle\Entity\Image'
+                'data_class' => 'AppBundle\Entity\Products',' AppBundle\Entity\Category','AppBundle\Entity\Image',
 
             ]
         );
