@@ -73,17 +73,9 @@ class Products
     private $categories;
 
     /**
-     * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     *
-     * @Vich\UploadableField(mapping="image_upload", fileNameProperty="prodimg")
-     *
-     * @var File $prodFile
-    */
-    protected $prodFile;
-    /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image",cascade={"persist"}, mappedBy="prodimgs")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image",cascade={"persist"}, mappedBy="product")
      */
-    private $prodimg;
+    private $image;
 
     /**
      * @ORM\ManyToOne(targetEntity="LEKORP\UserBundle\Entity\User", cascade={"persist"}, inversedBy="leproducts")
@@ -101,37 +93,7 @@ class Products
 
     }
 
-    /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
-     *
-     * @return Products
-     */
-    public function setProdFile(File $image = null)
-    {
-        $this->prodFile = $image;
 
-        if ($image) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTime('now');
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return File
-     */
-    public function getProdFile()
-    {
-        return $this->prodFile;
-    }
 
 
     /**
@@ -308,32 +270,36 @@ class Products
     {
         return $this->productname;
     }
-
     /**
-     * Get prodimg
+     * Set image
      *
-     * @return \Doctrine\Common\Collections\Collection  $prodimg
-     *
-     */
-    public function getProdimg()
-    {
-        return $this->prodimg;
-    }
-
-    /**
-     * Add img
-     *
-     * @param \AppBundle\Entity\Image $img
+     * @param \AppBundle\Entity\Image $products
      *
      * @return Products
      */
-    public function setProdimg($img)
+    public function setProduct(\AppBundle\Entity\Image $products)
     {
-        $this->prodimg = $img;
+        $this->image = $products;
+        return $this;
     }
     /**
+     * Remove image
+     *
+     * @param \AppBundle\Entity\Image $products
+     */
+    public function removeProduct(\AppBundle\Entity\Image $products)
+    {
+        $this->image->removeElement($products);
+    }
+    /**
+     * Get image
+     *
      * @return string
      */
+    public function getImage()
+    {
+        return $this->image;
+    }
 
     public function getOwner()
     {

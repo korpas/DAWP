@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Products;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Image;
 use AppBundle\Form\ProductsType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -46,6 +47,7 @@ class ProductsController extends Controller
 
 
 
+
         $form = $this->createForm(ProductsType::class, $p);
 
         if ($request->getMethod() == Request::METHOD_POST) {
@@ -54,6 +56,7 @@ class ProductsController extends Controller
                 $m = $this->getDoctrine()->getManager();
                 $catRepo = $m->getRepository('AppBundle:Category');
                 $proRepo = $m->getRepository('AppBundle:Products');
+                $imgRepo = $m->getRepository('AppBundle:Image');
                 $p->setOwner($this->getUser());
 
                 $m->persist($p);

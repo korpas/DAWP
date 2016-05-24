@@ -38,7 +38,9 @@ class Image
      * @ORM\Column(type="string", length=255)
      *
      * @var string
+     *
      */
+
     private $imageName;
 
     /**
@@ -49,14 +51,15 @@ class Image
     private $updatedAt;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Products", inversedBy="prodimg")
+     * @var string
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Products", inversedBy="image")
      */
-    private $prodimgs;
+    private $product;
 
     /**
-     * @ORM\OneToOne(targetEntity="LEKORP\UserBundle\Entity\User")
+     * @ORM\OneToOne(targetEntity="LEKORP\UserBundle\Entity\User" , inversedBy="imageu")
      */
-    private $imgprofile;
+    private $profile;
 
     public function __construct()
     {
@@ -120,15 +123,15 @@ class Image
     }
 
     /**
-     * Set prodimg
+     * Set product
      *
      * @param \AppBundle\Entity\Products $images
      *
      * @return Image
      */
-    public function setProdimgs(\AppBundle\Entity\Products $images)
+    public function setProduct(\AppBundle\Entity\Products $images)
     {
-        $this->prodimgs = $images;
+        $this->product = $images;
         return $this;
     }
     /**
@@ -136,18 +139,18 @@ class Image
      *
      * @param \AppBundle\Entity\Products $images
      */
-    public function removeProdimgs(\AppBundle\Entity\Products $images)
+    public function removeProduct(\AppBundle\Entity\Products $images)
     {
-        $this->prodimgs->removeElement($images);
+        $this->product->removeElement($images);
     }
     /**
-     * Get prodimgs
+     * Get product
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return string
      */
-    public function getProdimgs()
+    public function getProduct()
     {
-        return $this->prodimgs;
+        return $this->product;
     }
 
 

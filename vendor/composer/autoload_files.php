@@ -9,10 +9,10 @@ return array(
     $vendorDir . '/symfony/phpunit-bridge/bootstrap.php',
     $vendorDir . '/swiftmailer/swiftmailer/lib/swift_required.php',
     $vendorDir . '/paragonie/random_compat/lib/random.php',
+    $vendorDir . '/kriswallsmith/assetic/src/functions.php',
     $vendorDir . '/symfony/polyfill-php70/bootstrap.php',
     $vendorDir . '/symfony/polyfill-php56/bootstrap.php',
     $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
     $vendorDir . '/symfony/polyfill-intl-icu/bootstrap.php',
-    $vendorDir . '/kriswallsmith/assetic/src/functions.php',
     $baseDir . '/app/AppKernel.php',
 );

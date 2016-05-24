@@ -148,11 +148,13 @@ class Category
         return $this->updatedAt;
     }
 
-    public function addProducts(\AppBundle\Entity\Products $product)
+   public function addProducts(\AppBundle\Entity\Products $product)
     {
         $this->products[] = $product;
         return $this;
     }
+
+
     /**
      * Remove product
      *
