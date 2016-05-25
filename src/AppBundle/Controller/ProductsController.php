@@ -122,8 +122,51 @@ class ProductsController extends Controller
         $this->addFlash('messages', 'Eliminado');
         return $this->redirectToRoute('app_products_index');
 
+    }
 
-
-
+    /**
+     * @Route("/{id}.html", name="app_products_show")
+     */
+    public function showAction(Products $products, Request $request)
+    {
+        $m = $this->getDoctrine()->getManager();
+        $proRepo = $m->getRepository('AppBundle:Products');
+        $query = $proRepo->queryProductsByCategoryId($products->getId());
+        $paginator = $this->get('knp_paginator');
+        $product = $paginator->paginate($query, $request->query->getInt('page', 1), Products::PAGINATION_ITEMS);
+        return $this->render(':products:index.html.twig', [
+            'products'   => $products,
+            'product'  => $product,
+        ]);
+    }
+    /**
+     * @Route("/products/category/{categoryname}", name="app_products_byCategory")
+     */
+    public function productsByCategoryAction(Category $category, Request $request)
+    {
+        $m = $this->getDoctrine()->getManager();
+        $proRepo = $m->getRepository('AppBundle:Products');
+        $query = $proRepo->queryProductsByCategoryId($category->getId());
+        $paginator = $this->get('knp_paginator');
+        $products = $paginator->paginate($query, $request->query->getInt('page', 1), Products::PAGINATION_ITEMS);
+        return $this->render(':index:index.html.twig', [
+            'products'  => $products,
+            'title'     => '#' . $category->getCategoryname(),
+        ]);
+    }
+    /**
+     * @Route("/products/user/{username}", name="app_articles_byUser")
+     */
+    public function articlesByUSerAction(User $user, Request $request)
+    {
+        $m = $this->getDoctrine()->getManager();
+        $productRepo = $m->getRepository('AppBundle:Products');
+        $query = $productRepo->queryProductsByUserId($user->getId());
+        $paginator = $this->get('knp_paginator');
+        $products = $paginator->paginate($query, $request->query->getInt('page', 1), Products::PAGINATION_ITEMS);
+        return $this->render(':index:index.html.twig', [
+            'products'  => $products,
+            'title'     => '@' . $user->getUsername(),
+        ]);
     }
 }

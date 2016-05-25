@@ -26,7 +26,6 @@ class ProductsRepository extends \Doctrine\ORM\EntityRepository
     {
         $query = $this->createQueryBuilder('p')
         ->leftJoin('p.categories','categories')
-        ->leftJoin('p.imageName','imageName')
         //->addSelect('categories')
         ->addOrderBy('p.createdAt','DESC')
         ->andWhere('categories.id = :id')
@@ -43,6 +42,28 @@ class ProductsRepository extends \Doctrine\ORM\EntityRepository
     public function productsByCategoryId($id)
     {
         return $this->queryProductsByCategoryId($id)->execute();
+    }
+
+    public function queryProductsByUserId($id)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->leftJoin('p.owner','owner')
+            //->addSelect('categories')
+            ->addOrderBy('p.createdAt','DESC')
+            ->andWhere('owner.id = :id')
+            ->setParameter('id',$id)
+            ->getQuery()
+        ;
+
+        //var_dump($query->getDQL());die;
+        //var_dump($query->getSQL());die;
+
+        return $query;
+    }
+
+    public function productsByUserId($id)
+    {
+        return $this->queryProductsByUserId($id)->execute();
     }
 
 }

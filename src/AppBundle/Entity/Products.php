@@ -20,6 +20,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Products
 {
     /**
+     * it rarely changes, so better define it as a constant than a parameter under parameters.yml
+     */
+    const PAGINATION_ITEMS = 4;
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
