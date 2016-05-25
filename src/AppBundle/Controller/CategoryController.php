@@ -9,8 +9,10 @@ use AppBundle\Form\CategoryType;
 use AppBundle\Entity\Category;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 class CategoryController extends Controller
 {
+
     /**
      * @Route("/category_insert/{id}", name="app_category_insert")
      * @Security("has_role('ROLE_ADMIN')")
@@ -35,6 +37,7 @@ class CategoryController extends Controller
 
     public function insertAction(Request $request)
     {
+
         $c = new Category();
         $form = $this->createForm(CategoryType::class, $c);
 
@@ -45,7 +48,6 @@ class CategoryController extends Controller
                 $m->persist($c);
                 $m->flush();
                 $this->addFlash('messages', 'Categoria añadida');
-
                 return $this->redirectToRoute('app_category_insert');
             }
         }
