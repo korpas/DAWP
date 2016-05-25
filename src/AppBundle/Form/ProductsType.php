@@ -30,7 +30,7 @@ class ProductsType extends AbstractType
              'expanded' => true
     ))
 
-            ->add('imageFile', VichImageType::class,[
+            ->add('prodFile', VichImageType::class,[
                 'required'      => false,
                 'allow_delete'  => true, // not mandatory, default is true
                 'download_link' => true, // not mandatory, default is true

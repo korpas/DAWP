@@ -49,11 +49,6 @@ class User extends BaseUser
      */
     private $messages2;
 
-    /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image",cascade={"persist"}, mappedBy="profile")
-     */
-    private $imageu;
-
 
     public function __construct()
     {
@@ -174,27 +169,5 @@ class User extends BaseUser
     {
         return $this->messages2;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getImageu()
-    {
-        return $this->imageu;
-    }
-
-    /**
-     * @param mixed $imageu
-     */
-    public function setImageu($imageu)
-    {
-        $this->imageu = $imageu;
-    }
-
-
-
-
-
-
 
 }

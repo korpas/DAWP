@@ -12,6 +12,3 @@ app.messages:
 app.category:
     resource: "@AppBundle/Controller/CategoryController.php"
     type : annotation
-app.assessments:
-    resource: "@AppBundle/Controller/AssessmentsController.php"
-    type : annotation

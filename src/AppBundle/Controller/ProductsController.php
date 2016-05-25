@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Products;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Image;
 use AppBundle\Form\ProductsType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -57,8 +56,8 @@ class ProductsController extends Controller
                 $catRepo = $m->getRepository('AppBundle:Category');
                 $proRepo = $m->getRepository('AppBundle:Products');
                 $imgRepo = $m->getRepository('AppBundle:Image');
-                $p->setOwner($this->getUser());
 
+                $p->setOwner($this->getUser());
                 $m->persist($p);
                 $m->flush();
                 return $this->redirectToRoute('app_products_index');
