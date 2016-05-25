@@ -56,7 +56,6 @@ class ProductsController extends Controller
                 $m = $this->getDoctrine()->getManager();
                 $catRepo = $m->getRepository('AppBundle:Category');
                 $proRepo = $m->getRepository('AppBundle:Products');
-                $imgRepo = $m->getRepository('AppBundle:Image');
 
                 $p->setOwner($this->getUser());
                 $m->persist($p);

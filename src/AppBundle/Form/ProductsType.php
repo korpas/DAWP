@@ -50,7 +50,7 @@ class ProductsType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'AppBundle\Entity\Products',' AppBundle\Entity\Category','AppBundle\Entity\Image',
+                'data_class' => 'AppBundle\Entity\Products',' AppBundle\Entity\Category',
 
             ]
         );
