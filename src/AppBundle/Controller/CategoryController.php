@@ -14,21 +14,22 @@ class CategoryController extends Controller
 {
 
     /**
-     * @Route("/category_insert/{id}", name="app_category_insert")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/category", name="app_category_categories")
+
      */
+
 
     public function categoryAction(Request $request)
     {
-    $m = $this->getDoctrine()->getManager();
-    $cr = $m->getRepository('AppBundle:Category');
-    $categories = $cr->queryAllCategories();
-    $response = $this->render(':category:insert.html.twig',
-        [
-           'categories' => $categories
+        $m = $this->getDoctrine()->getManager();
+        $catRepo = $m->getRepository('AppBundle:Category');
+        $catQuery = $catRepo->queryAllCategories();
+        $cat = $this->get('knp_paginator')->paginate($catQuery, $request->query->getInt('page', 1));
+        return $this->render(':category:categories.html.twig', [
+            'cat' => $cat,
         ]);
-    return $response;
     }
+
 
     /**
      * @Route("/category_insert", name="app_category_insert")

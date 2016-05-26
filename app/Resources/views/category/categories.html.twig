@@ -1,15 +1,19 @@
 {% extends '::base.html.twig' %}
 
-{% block headTitle %}{{ productname }}{% endblock %}
+{% block headTitle %}Categorias{% endblock %}
 
 {% block body %}
-    {% for categories in category %}
-        {% include ':category:content.html.twig' %}
-    {% endfor %}
-    {% if not doPagination is defined %}
-        <div class="navigation">
-            {{ knp_pagination_render(products) }}
-        </div>
-    {% endif %}
-{% endblock %}
+    <h1>Categorias</h1>
+    <hr>
+    <div style="margin-left: 15px; margin-bottom: 10px">
+        {% for cat in cat %}
 
+            <h3 style="display: inline-block;"><a class="btn btn-warning btn-xs" href="{{ path('app_products_byCategory', {'categoryname': cat.categoryname}) }}">{{ cat.categoryname }}</a></h3>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_category_remove', {'id': cat.id}) }}"><img src="{{ asset('icons/glyphicons-198-remove.png') }}" alt="Borrar categoria" /></a>
+            {% endif %}
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

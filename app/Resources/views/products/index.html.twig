@@ -1,7 +1,10 @@
+
 {% extends '::base.html.twig' %}
 
-{% block headTitle %}Show Article{% endblock %}
+{% block headTitle %}Mostrar Productos{% endblock %}
 
 {% block body %}
-    {% include ':products:content.html.twig'%}
+    <div class="product-container" >
+        {% include ':products:content.html.twig'%}
+    </div>
 {% endblock %}

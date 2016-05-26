@@ -17,7 +17,7 @@ class ProductsRepository extends \Doctrine\ORM\EntityRepository
         ->leftJoin('p.categories','categories')
             ;
     }
-    public function allArticles()
+    public function allProducts()
     {
         return $this->queryAllProducts()->execute();
     }

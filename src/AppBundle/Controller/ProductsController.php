@@ -17,25 +17,32 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 class ProductsController extends Controller
 {
     /**
-     * indexAction
+     *
+     *
      *@Route(path="/products_index",name="app_products_index"
      * )
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function productsAction(Request $request)
     {
         $m = $this->getDoctrine()->getManager();
-        $repository = $m->getRepository('AppBundle:Products');
-        /**
-         * @var Products $product
-         */
-        $product = $repository->findAll();
-        return $this->render(':products:index.html.twig',
+        $prodRep = $m->getRepository('AppBundle:Products');
+        $query = $prodRep->queryAllProducts();
+        $paginator = $this->get('knp_paginator');
+        $products = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            Products::PAGINATION_ITEMS,
             [
-                'product' => $product,
+                'wrap-queries' => true,
             ]
         );
+        $response = $this->render(':products:products.html.twig', [
+            'products' => $products,
+            'titulo' => 'Productos'
+        ]);
+        return $response;
     }
 
     /**
@@ -99,7 +106,7 @@ class ProductsController extends Controller
                 $m = $this->getDoctrine()->getManager();
                 $proRepo = $m->getRepository('AppBundle:Products');
                 $m->flush();
-                return $this->redirectToRoute('app_products_index');
+                return $this->redirectToRoute('app_products_show', ['id' =>$products->getId()]);
             }
         }
         return $this->render(':products:insert.html.twig', [
@@ -130,27 +137,27 @@ class ProductsController extends Controller
     {
         $m = $this->getDoctrine()->getManager();
         $proRepo = $m->getRepository('AppBundle:Products');
-        $query = $proRepo->queryProductsByCategoryId($products->getId());
+        $query = $proRepo->queryAllProducts();
         $paginator = $this->get('knp_paginator');
-        $product = $paginator->paginate($query, $request->query->getInt('page', 1), Products::PAGINATION_ITEMS);
+        $products = $paginator->paginate($query, $request->query->getInt('page', 1), Products::PAGINATION_ITEMS);
         return $this->render(':products:index.html.twig', [
             'products'   => $products,
-            'product'  => $product,
+
         ]);
     }
     /**
      * @Route("/products/category/{categoryname}", name="app_products_byCategory")
      */
-    public function productsByCategoryAction(Category $category, Request $request)
+    public function productsByCategoryAction(Category $cat, Request $request)
     {
         $m = $this->getDoctrine()->getManager();
         $proRepo = $m->getRepository('AppBundle:Products');
-        $query = $proRepo->queryProductsByCategoryId($category->getId());
+        $query = $proRepo->queryProductsByCategoryId($cat->getId());
         $paginator = $this->get('knp_paginator');
         $products = $paginator->paginate($query, $request->query->getInt('page', 1), Products::PAGINATION_ITEMS);
-        return $this->render(':products:index.html.twig', [
+        return $this->render(':products:products.html.twig', [
             'products'  => $products,
-            'title'     => '#' . $category->getCategoryname(),
+            'title'     => '#' . $cat->getCategoryname(),
         ]);
     }
     /**
@@ -163,7 +170,7 @@ class ProductsController extends Controller
         $query = $productRepo->queryProductsByUserId($user->getId());
         $paginator = $this->get('knp_paginator');
         $products = $paginator->paginate($query, $request->query->getInt('page', 1), Products::PAGINATION_ITEMS);
-        return $this->render(':products:index.html.twig', [
+        return $this->render(':products:products.html.twig', [
             'products'  => $products,
             'user'     => '@' . $user->getUsername(),
         ]);

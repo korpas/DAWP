@@ -14,6 +14,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Category
 {
     /**
+     * it rarely changes, so better define it as a constant than a parameter under parameters.yml
+     */
+    const PAGINATION_ITEMS = 4;
+    
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -57,6 +62,10 @@ class Category
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime("now");
     }
+    public function __toString() {
+        return $this->categoryname;
+    }
+
     /**
      * @ORM\PreUpdate
      */

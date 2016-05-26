@@ -3,7 +3,7 @@
 {% block headTitle %}{{ productname }}{% endblock %}
 
 {% block body %}
-    {% for out in products %}
+    {% for out in messages %}
         {% include ':products:content.html.twig' %}
     {% endfor %}
     {% if not doPagination is defined %}

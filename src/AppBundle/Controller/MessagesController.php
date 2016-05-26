@@ -56,7 +56,7 @@ class MessagesController extends Controller
                 return $this->redirectToRoute('app_products_index');
             }
         }
-        return $this->render(':products:insert.html.twig', [
+        return $this->render(':messages:insert.html.twig', [
             'form'  => $form->createView(),
             'title' => 'New Product',
         ]);

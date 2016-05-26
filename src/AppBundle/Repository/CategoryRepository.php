@@ -13,9 +13,9 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
     public function queryAllCategories()
     {
         return $this->createQueryBuilder('c')
-            ->addOrderBy('c.createdAt','DESC')
-            ->leftJoin('c.categoryname','categoryname')
-            ->addSelect('categoryname')
+            ->addOrderBy('c.categoryname','DESC')
+            ->leftJoin('c.products','products')
+            ->addSelect('products')
             ->getQuery()
             ;
     }
