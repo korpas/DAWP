@@ -3,7 +3,7 @@
 {% block headTitle %}{{ productname }}{% endblock %}
 
 {% block body %}
-    {% for cat in category %}
+    {% for categories in category %}
         {% include ':category:content.html.twig' %}
     {% endfor %}
     {% if not doPagination is defined %}

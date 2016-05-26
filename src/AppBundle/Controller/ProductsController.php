@@ -85,7 +85,7 @@ class ProductsController extends Controller
          }
 
         $form = $this->createForm(ProductsType::class, $products, [
-            'submit_label'  => 'Edit Article'
+
         ]);
         $now = new \DateTime();
         $sinceCreated = $now->diff($products->getCreatedAt());
@@ -99,7 +99,7 @@ class ProductsController extends Controller
                 $m = $this->getDoctrine()->getManager();
                 $proRepo = $m->getRepository('AppBundle:Products');
                 $m->flush();
-                return $this->redirectToRoute('app_article_show', ['id' => $products->getId()]);
+                return $this->redirectToRoute('app_products_index');
             }
         }
         return $this->render(':products:insert.html.twig', [
@@ -148,7 +148,7 @@ class ProductsController extends Controller
         $query = $proRepo->queryProductsByCategoryId($category->getId());
         $paginator = $this->get('knp_paginator');
         $products = $paginator->paginate($query, $request->query->getInt('page', 1), Products::PAGINATION_ITEMS);
-        return $this->render(':index:index.html.twig', [
+        return $this->render(':products:index.html.twig', [
             'products'  => $products,
             'title'     => '#' . $category->getCategoryname(),
         ]);
@@ -163,7 +163,7 @@ class ProductsController extends Controller
         $query = $productRepo->queryProductsByUserId($user->getId());
         $paginator = $this->get('knp_paginator');
         $products = $paginator->paginate($query, $request->query->getInt('page', 1), Products::PAGINATION_ITEMS);
-        return $this->render(':index:index.html.twig', [
+        return $this->render(':products:index.html.twig', [
             'products'  => $products,
             'user'     => '@' . $user->getUsername(),
         ]);

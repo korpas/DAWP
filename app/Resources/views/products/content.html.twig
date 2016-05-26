@@ -1,38 +1,51 @@
 <div class="rounded-box margin-bottom-lg"> {# article #}
     <div style="float: right;">
         {# Without voter #}
-        {% for product in product %}
-        {% if product.owner == app.user or is_granted('ROLE_ADMIN') %}
-            {# {% if is_granted('EDIT', product) %}#}
-            <a href="{{ path('app_products_edit', {'id': product.id}) }}"><img src="{{ asset('icons/glyphicons-151-edit.png') }}" alt="editar-publicacion" /></a>
-            {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('app_products_remove', {'id': product.id}) }}"><img src="{{ asset('icons/glyphicons-198-remove.png') }}" alt="borrar-publicacion" /></a>
-            {% endif %}
-        {% endif %}
-        {% endfor %}
+
     </div>
     {% for product in product %}
-    <strong>Author:</strong> <a href="{{ path('app_products_byUser', {'username': product.owner.username}) }}">@{{ product.owner }}</a>
-    <a style="margin-top: 0"></a><a style="color: inherit; text-decoration: inherit;" href="{{ path('app_products_show', {'id': product.id}) }}">{{ product.productname }}</a><a href="{{ path('app_products_show', {'id': product.id}) }}"></a>
-        <div>
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ product.productname }}</h3><h3 style="float:right" class="panel-tile">{% if product.owner == app.user or is_granted('ROLE_ADMIN') %}
+                    {# {% if is_granted('EDIT', product) %}#}
 
-         ::
-                <strong>Descripción:</strong> {{ product.description}} ::
-                <strong>Precio:</strong> {{ product.price}} ::
-        <strong>Created:</strong> {{ product.createdAt|date("d/m/Y H:i:s") }} ::
-        <strong>Updated:</strong> {{ product.updatedAt|date("d/m/Y H:i:s") }}
+                    <a href="{{ path('app_products_edit', {'id': product.id}) }}"><img src="{{ asset('icons/glyphicons-151-edit.png') }}" alt="editar-publicacion" /></a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_products_remove', {'id': product.id}) }}"><img src="{{ asset('icons/glyphicons-198-remove.png') }}" alt="borrar-publicacion" /></a>
+                    {% endif %}
+
+                {% endif %}</h3>
         </div>
-        <div style="border-top:1px solid #DDD; padding-top: 10px;">
-            <img class="" src="/images/upload/{{ product.imageName }}" title="{{ product.prodFile }}"/>
+        <div class="panel-body">
+            <strong>Author:</strong> <a href="{{ path('app_products_byUser', {'username': product.owner.username}) }}">@{{ product.owner }}</a>
+            <a style="margin-top: 0"></a><a style="color: inherit; text-decoration: inherit;" href="{{ path('app_products_show', {'id': product.id}) }}"></a><a href="{{ path('app_products_show', {'id': product.id}) }}"></a>
 
 
+            <div>
+
+                <strong>Descripción:</strong> {{ product.description}}
+                <strong>Precio:</strong> {{ product.price}}
+                <strong>Created:</strong> {{ product.createdAt|date("d/m/Y H:i:s") }}
+                <strong>Updated:</strong> {{ product.updatedAt|date("d/m/Y H:i:s") }}
+                <div style="border-top:1px solid #DDD; padding-top: 10px;">
+                    <img style="width: 140px; height: 140px;" data-src="holder.js/140x140" src="/images/upload/{{ product.imageName }}" title="{{ product.prodFile }}" class="img-rounded" alt="140x140">
+
+                </div>
+            </div>
+
+            </div>
         </div>
-            {% endfor %}
+
+
+
+        {% endfor %}
+
+
 
     {% if show_content is defined %}
-        <div id="article-content" style="margin-bottom:20px;padding: 0 20px;font-size: medium">
-            {{ product.description }}
-        </div>
+        {{ render(controller('AppBundle:Products:insert', {'id': products.id})) }}
+        {# {{ render(controller('AppBundle:Comentario:comentariosDeLasPublicaciones', {'id': publicacion.id})) }}#}
+
     {% endif %}
 
 

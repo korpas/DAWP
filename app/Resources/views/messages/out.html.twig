@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block headTitle %}{{ productname }}{% endblock %}
+
+{% block body %}
+    {% for out in products %}
+        {% include ':products:content.html.twig' %}
+    {% endfor %}
+    {% if not doPagination is defined %}
+        <div class="navigation">
+            {{ knp_pagination_render(products) }}
+        </div>
+    {% endif %}
+{% endblock %}
+
