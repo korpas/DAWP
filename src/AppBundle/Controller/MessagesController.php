@@ -61,5 +61,19 @@ class MessagesController extends Controller
         ]);
     }
 
+    /**
+     *
+     * @Route("/message_remove/{id}", name="app_message_remove")
+     * @ParamConverter(name="Messages", class="AppBundle:Messages")
+     */
+    public function removeAction(Messages $Messages)
+    {
+        $m = $this->getDoctrine()->getManager();
+        $m->remove($Messages);
+        $m->flush();
+        $this->addFlash('messages', 'Eliminado');
+        return $this->redirectToRoute('app_messages_index');
+    }
+
 
 }

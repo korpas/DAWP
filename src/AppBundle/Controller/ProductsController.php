@@ -154,9 +154,9 @@ class ProductsController extends Controller
         ]);
     }
     /**
-     * @Route("/products/user/{username}", name="app_articles_byUser")
+     * @Route("/products/user/{username}", name="app_products_byUser")
      */
-    public function articlesByUSerAction(User $user, Request $request)
+    public function productsByUSerAction(User $user, Request $request)
     {
         $m = $this->getDoctrine()->getManager();
         $productRepo = $m->getRepository('AppBundle:Products');
@@ -165,7 +165,7 @@ class ProductsController extends Controller
         $products = $paginator->paginate($query, $request->query->getInt('page', 1), Products::PAGINATION_ITEMS);
         return $this->render(':index:index.html.twig', [
             'products'  => $products,
-            'title'     => '@' . $user->getUsername(),
+            'user'     => '@' . $user->getUsername(),
         ]);
     }
 }

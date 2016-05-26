@@ -176,7 +176,17 @@ class Products
         return $this->imageName;
     }
 
+    /**
+     * Set id
+     *
+     * @return int
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
 
+        return $this;
+    }
 
     /**
      * Get id

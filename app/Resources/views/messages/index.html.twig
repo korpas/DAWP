@@ -1,8 +1,7 @@
 {% extends '::base.html.twig' %}
 
+{% block headTitle %}Show Messages{% endblock %}
+
 {% block body %}
-    <h1>Messages</h1>
-    <ul>
-        <li><a href="{{ path('app_messages_insert') }}">Insertar mensaje</a>   </li>
-    </ul>
+    {% include ':products:content.html.twig'%}
 {% endblock %}

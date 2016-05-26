@@ -57,10 +57,6 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function editAction()
-    {
-
-    }
     /**
      *
      * @Route("/category_remove/{id}", name="app_category_remove")
