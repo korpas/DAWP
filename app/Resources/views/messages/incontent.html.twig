@@ -1,6 +1,6 @@
 
 {% block body %}
-    {% if is_granted('ROLE_USER') %}
+    {% if inn.users2 == app.user or is_granted('ROLE_User') %}
 
         <div style="margin-left: 15px; margin-bottom: 10px">
 
