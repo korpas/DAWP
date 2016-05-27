@@ -13,14 +13,10 @@ class MessagesRepository extends \Doctrine\ORM\EntityRepository
     public function queryAllMessages()
     {
         return $this->createQueryBuilder('m')
-            ->addOrderBy('m.createdAt','DESC')
-            ->leftJoin('m.issue','issue')
-            ->addSelect('issue')
-            ->addOrderBy('m.content','DESC')
-            ->leftJoin('m.content','content')
-            ->addSelect('content')
-            ->getQuery()
-            ;
+            ->addOrderBy('m.issue','DESC')
+            ->leftJoin('m.users','users')
+            ->addSelect('users')
+            ->getQuery();
     }
 
     public function allMessages()

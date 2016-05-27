@@ -1,0 +1,37 @@
+
+{% block body %}
+    {% if out.users == app.user or is_granted('ROLE_User') %}
+
+        <div style="margin-left: 15px; margin-bottom: 10px">
+
+
+
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+
+
+                    <a href="{{ path('app_message_remove', {'id': out.id}) }}"><img src="{{ asset('icons/glyphicons-198-remove.png') }}" alt="borrar-publicacion" /></a>
+
+
+                </div>
+                <div class="panel-body">
+                    <strong>Destinatary</strong> <a href="{{ path('app_products_byUser', {'username': out.users2.username}) }}">@{{ out.users2.username}}</a>
+
+                    <div>
+
+                        <strong>Tema:</strong> {{ out.issue}}
+                        <strong>Contenido</strong> {{ out.content}}
+                        <strong>Created:</strong> {{ out.createdAt|date("d/m/Y H:i:s") }}
+                        <strong>Updated:</strong> {{ out.updatedAt|date("d/m/Y H:i:s") }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    {% endif %}
+
+
+{% endblock %}
