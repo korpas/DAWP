@@ -27,11 +27,13 @@ class ProductsType extends AbstractType
              'class' => 'AppBundle:Category',
              'choice_label' => 'categoryname',
              'multiple' =>  true,
-             'expanded' => true
+             'expanded' => true,
+                'required'=>true,
     ))
 
             ->add('prodFile', VichImageType::class,[
-                'required'      => false,
+
+                'required'      => true,
                 'allow_delete'  => true, // not mandatory, default is true
                 'download_link' => true, // not mandatory, default is true
 

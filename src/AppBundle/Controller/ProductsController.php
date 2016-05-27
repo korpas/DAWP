@@ -129,23 +129,8 @@ class ProductsController extends Controller
 
     }
 
-    /**
-     * @Route("/products_show/{id}.html", name="app_products_show")
-     */
-    public function showAction(Products $products, Request $request)
-    {
-        $m = $this->getDoctrine()->getManager();
-        $proRepo = $m->getRepository('AppBundle:Products');
-        $query = $proRepo->queryAllProducts();
-        $paginator = $this->get('knp_paginator');
-        $products = $paginator->paginate($query, $request->query->getInt('page', 1), Products::PAGINATION_ITEMS);
-        return $this->render(':products:products.html.twig', [
-            'products'   => $products,
 
 
-
-        ]);
-    }
     /**
      * @Route("/products/category/{categoryname}", name="app_products_byCategory")
      */

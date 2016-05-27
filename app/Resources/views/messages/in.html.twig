@@ -10,6 +10,9 @@
         {% include ':messages:incontent.html.twig' %}
         </span>
         {% endfor %}
+
+        <a class="btn btn-default btn-xxl" href ="{{ path('fos_user_profile_show') }}">Volver a perfil</a>
+        <a class="btn btn-default btn-xxl" href="{{ path('app_messages_indexOut') }}">Bandeja de Salida</a>
     </div>
     {% if not doPagination is defined %}
         <div class="navigation ">

@@ -13,7 +13,7 @@ class ProductsRepository extends \Doctrine\ORM\EntityRepository
     public function queryAllProducts()
     {
         return $this->createQueryBuilder('p')
-        ->addOrderBy('p.createdAt','DESC')
+        ->addOrderBy('p.updatedAt','DESC')
         ->leftJoin('p.categories','categories')
 
             ;

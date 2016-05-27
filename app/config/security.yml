@@ -29,4 +29,4 @@ security:
         - { path: ^/products_insert, role: ROLE_USER }
         - { path: ^/messages_insert, role: ROLE_USER }
         - { path: ^/category_insert, role: ROLE_ADMIN }
-        - { path: ^/messages_insert, role: ROLE_USER }
+        - { path: ^/messages, role: ROLE_USER }

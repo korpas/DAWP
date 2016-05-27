@@ -4,4 +4,6 @@
 
 {% block body %}
     {% include ':messages:outindex.html.twig'%}
+    <a class="btn btn-default btn-xxl" href ="{{ path('fos_user_profile_show') }}">Volver a perfil</a>
+    <a class="btn btn-default btn-xxl" href="{{ path('app_messages_indexIn') }}">Bandeja de Entrada</a>
 {% endblock %}
