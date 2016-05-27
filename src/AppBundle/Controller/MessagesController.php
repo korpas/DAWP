@@ -14,24 +14,57 @@ use Symfony\Component\HttpFoundation\Request;
 class MessagesController extends Controller
 {
     /**
-     * indexAction
-     *@Route(path="/messages_index",name="app_messages_index")
+     *
+     *@Route(path="/messages_index/in",name="app_messages_indexIn")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexInAction(Request $request)
     {
         $m = $this->getDoctrine()->getManager();
-        $repository = $m->getRepository('AppBundle:Messages');
-        /**
-         * @var Messages $message
-         */
-        $message = $repository->findAll();
-        return $this->render(':messages:index.html.twig',
+        $mesRep = $m->getRepository('AppBundle:Messages');
+        $query = $mesRep->queryAllMessages();
+        $paginator = $this->get('knp_paginator');
+        $messages = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            Messages::PAGINATION_ITEMS,
             [
-                'message' => $message,
+                'wrap-queries' => true,
             ]
         );
+        $response = $this->render(':messages:in.html.twig', [
+            'messages' => $messages,
+            'titulo' => 'Mensajes'
+        ]);
+        return $response;
+    }
+
+    /**
+     * indexAction
+     *@Route(path="/messages_index/out",name="app_messages_indexOut")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexOutAction(Request $request)
+    {
+        $m = $this->getDoctrine()->getManager();
+        $mesRep = $m->getRepository('AppBundle:Messages');
+        $query = $mesRep->queryAllMessages();
+        $paginator = $this->get('knp_paginator');
+        $messages = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            Messages::PAGINATION_ITEMS,
+            [
+                'wrap-queries' => true,
+            ]
+        );
+        $response = $this->render(':messages:out.html.twig', [
+            'messages' => $messages,
+            'titulo' => 'Mensajes'
+        ]);
+        return $response;
     }
 
     /**
@@ -67,47 +100,16 @@ class MessagesController extends Controller
      * @Route("/message_remove/{id}", name="app_message_remove")
      * @ParamConverter(name="Messages", class="AppBundle:Messages")
      */
-    public function removeAction(Messages $Messages)
+    public function removeAction(Messages $messages)
     {
         $m = $this->getDoctrine()->getManager();
-        $m->remove($Messages);
+        $m->remove($messages);
         $m->flush();
         $this->addFlash('messages', 'Eliminado');
         return $this->redirectToRoute('app_messages_index');
     }
     /**
-     * @Route("/messagesin/user/{username}", name="app_messages_byUser2")
+     * @Route("/messagesin/user/", name="app_messages_byUser2")
      */
-    public function inAction(User $user, Request $request){
-
-        $m = $this->getDoctrine()->getManager();
-        $mesRepo = $m->getRepository('AppBundle:Messages');
-        $query = $mesRepo->queryMessagesByUserId2($user->getId());
-        $paginator = $this->get('knp_paginator');
-        $messages = $paginator->paginate($query, $request->query->getInt('page', 1), Messages::PAGINATION_ITEMS);
-        return $this->render(':messages:in.html.twig', [
-            'Messages'  => $messages,
-            'user'     => '@' . $user->getUsername(),
-        ]);
-
-    }
-
-    /**
-     * @Route("/messagesout/user/{username}", name="app_messages_byUser")
-     */
-    public function outAction(User $user, Request $request)
-    {
-        $m = $this->getDoctrine()->getManager();
-        $mesRepo = $m->getRepository('AppBundle:Messages');
-        $query = $mesRepo->queryMessagesByUserId($user->getId());
-        $paginator = $this->get('knp_paginator');
-        $messages = $paginator->paginate($query, $request->query->getInt('page', 1), Messages::PAGINATION_ITEMS);
-        return $this->render(':messages:out.html.twig', [
-            'Messages'  => $messages,
-            'user'     => '@' . $user->getUsername(),
-        ]);
-
-    }
-
 
 }

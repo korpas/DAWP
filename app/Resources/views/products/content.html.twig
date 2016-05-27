@@ -15,7 +15,7 @@
             </div>
             <div class="panel-body">
                 <strong>Author:</strong> <a href="{{ path('app_products_byUser', {'username': product.owner.username}) }}">@{{ product.owner }}</a>
-                <a style="margin-top: 0"></a><a style="color: inherit; text-decoration: inherit;" href="{{ path('app_products_show', {'id': product.id}) }}"></a><a href="{{ path('app_products_show', {'id': product.id}) }}"></a>
+                <a style="margin-top: 0"></a><a style="color: inherit; text-decoration: inherit;" href="{{ path('app_products_show', {'id': product.id}) }}"></a><a href="{{ path('app_products_show', {'id': product.id}) }}">{{ product.id }}</a>
 
 
                 <div>

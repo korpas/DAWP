@@ -67,7 +67,6 @@ class ProductsController extends Controller
                 $p->setOwner($this->getUser());
                 $m->persist($p);
                 $m->flush();
-                return $this->redirectToRoute('app_products_index');
             }
         }
         return $this->render(':products:insert.html.twig', [
@@ -131,7 +130,7 @@ class ProductsController extends Controller
     }
 
     /**
-     * @Route("/{id}.html", name="app_products_show")
+     * @Route("/products_show/{id}.html", name="app_products_show")
      */
     public function showAction(Products $products, Request $request)
     {
@@ -140,8 +139,10 @@ class ProductsController extends Controller
         $query = $proRepo->queryAllProducts();
         $paginator = $this->get('knp_paginator');
         $products = $paginator->paginate($query, $request->query->getInt('page', 1), Products::PAGINATION_ITEMS);
-        return $this->render(':products:index.html.twig', [
+        return $this->render(':products:products.html.twig', [
             'products'   => $products,
+
+
 
         ]);
     }

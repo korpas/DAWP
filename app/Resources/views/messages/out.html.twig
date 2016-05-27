@@ -1,15 +1,19 @@
+
 {% extends '::base.html.twig' %}
 
-{% block headTitle %}{{ productname }}{% endblock %}
+{% block headTitle %}{{ titulo }}{% endblock %}
 
 {% block body %}
-    {% for out in messages %}
-        {% include ':products:content.html.twig' %}
-    {% endfor %}
+    <div class="product-container" >
+        {% for out in messages %}
+            <span id="{{ out.id }}">
+        {% include ':messages:outcontent.html.twig' %}
+        </span>
+        {% endfor %}
+    </div>
     {% if not doPagination is defined %}
-        <div class="navigation">
-            {{ knp_pagination_render(products) }}
+        <div class="navigation ">
+            {{ knp_pagination_render(messages) }}
         </div>
     {% endif %}
 {% endblock %}
-

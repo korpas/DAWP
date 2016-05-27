@@ -6,7 +6,7 @@
 {% block body %}
     <div class="product-container" >
         {% for product in products %}
-
+            <span id="{{ product.id }}">
         {% include ':products:content.html.twig' %}
         </span>
         {% endfor %}
