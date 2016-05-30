@@ -29,6 +29,8 @@ class ProductsType extends AbstractType
              'multiple' =>  true,
              'expanded' => true,
                 'required'=>true,
+
+
     ))
 
             ->add('prodFile', VichImageType::class,[

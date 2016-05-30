@@ -12,7 +12,7 @@
         {% endfor %}
     </div>
     {% if is_granted('ROLE_USER') %}
-        <a class="btn btn-default btn-xxl" href="{{ path('app_products_insert')}}">Insertar Producto</a>
+        <a class="btn btn-warning btn-xxl" href="{{ path('app_products_insert')}}">Insertar Producto</a>
     {% endif %}
     {% if not doPagination is defined %}
         <div class="navigation ">
