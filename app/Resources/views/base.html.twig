@@ -32,6 +32,7 @@
 </head>
 
 <body>
+
 <div class="navbar navbar-default navbar-static-top">
     <div class="container">
         <div class="navbar-header">
@@ -44,8 +45,10 @@
             <a href="{{ path('app_index_index') }}" class="navbar-brand"><img height="20" alt="Brand" src="{{ asset('css/LOGO LT.png') }}"></a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+            <ul class="nav navbar-nav"></ul>
             <ul class="nav navbar-nav navbar-right">
                 <div class="navbar-form ">
+
                     {{ render_esi(controller('UserBundle:HoritzontalLogin:horitzontalLogin', {'route': app.request.get('_route')})) }}
 
                 </div>
