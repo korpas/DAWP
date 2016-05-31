@@ -1126,7 +1126,7 @@ img {
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
     display: block;
-    max-width: 100%;
+    max-width: 40%;
     height: auto;
 }
 .img-rounded {
@@ -6605,6 +6605,9 @@ body {
 .section {
     position: relative;
     padding: 35px 0;
+    word-wrap: break-word;
+    bottom: 0;
+    width:100%;
 }
 .section .background-image {
     z-index: 0;

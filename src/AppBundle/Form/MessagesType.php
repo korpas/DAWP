@@ -21,11 +21,12 @@ class MessagesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('issue', TextType::class, ['error_bubbling' => true, 'attr' => ['class' => 'anyClass']])
-            ->add('content', TextareaType::class, ['error_bubbling' => true])
+            ->add('issue', TextType::class, ['error_bubbling' => true, 'attr' => ['class' => 'anyClass'] , 'label' => 'Motivo Mensaje',])
+            ->add('content', TextareaType::class, ['error_bubbling' => true , 'label' => 'Contenido Mensaje',])
             ->add('users2', EntityType::class, array(
                 'class'    => 'UserBundle:User',
-                'choice_value' => 'username'))
+                'choice_value' => 'username',
+            'label' => 'Destinatario'))
             ->add('save', SubmitType::class,
                 array('label'=>'Enviar'))
         ;

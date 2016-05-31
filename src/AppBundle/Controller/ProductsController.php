@@ -105,7 +105,8 @@ class ProductsController extends Controller
                 $m = $this->getDoctrine()->getManager();
                 $proRepo = $m->getRepository('AppBundle:Products');
                 $m->flush();
-                return $this->redirectToRoute('app_products_show', ['id' =>$products->getId()]);
+                $this->addFlash('messages', 'Producto editado');
+                return $this->redirectToRoute('app_products_index', ['id' =>$products->getId()]);
             }
         }
         return $this->render(':products:insert.html.twig', [

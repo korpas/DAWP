@@ -20,15 +20,16 @@ class ProductsType extends AbstractType
     {
 
         $builder
-            ->add('productname', TextType::class, ['error_bubbling' => true, 'attr' => ['class' => 'anyClass']])
-            ->add('description', TextareaType::class, ['error_bubbling' => true])
-            ->add('price', MoneyType::class, ['error_bubbling' => true])
+            ->add('productname', TextType::class, ['error_bubbling' => true, 'attr' => ['class' => 'anyClass'] , 'label' => 'Nombre Producto',])
+            ->add('description', TextareaType::class, ['error_bubbling' => true , 'label'=> 'Descripción Producto',])
+            ->add('price', MoneyType::class, ['error_bubbling' => true, 'label' => 'Valor Monetario',])
             ->add('categories', EntityType::class, array(
              'class' => 'AppBundle:Category',
              'choice_label' => 'categoryname',
              'multiple' =>  true,
              'expanded' => true,
                 'required'=>true,
+                'label' => 'Categorias',
 
 
     ))
@@ -38,6 +39,7 @@ class ProductsType extends AbstractType
                 'required'      => true,
                 'allow_delete'  => true, // not mandatory, default is true
                 'download_link' => true, // not mandatory, default is true
+                'label' => 'Imagen',
 
             ])
 

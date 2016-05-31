@@ -8,23 +8,24 @@
 
             <div class="panel panel-warning">
                 <div class="panel-heading">
-
-
+                    <strong>Enviado: </strong> {{ out.createdAt|date("d/m/Y H:i:s") }}
                     <a href="{{ path('app_message_remove', {'id': out.id}) }}"><img src="{{ asset('icons/glyphicons-198-remove.png') }}" alt="borrar-publicacion" /></a>
-
-
                 </div>
                 <div class="panel-body">
-                    <strong>Destinatary</strong> <a href="{{ path('app_products_byUser', {'username': out.users2.username}) }}">@{{ out.users2.username}}</a>
-
-                    <div>
-
-                        <strong>Tema:</strong> {{ out.issue}}
-                        <strong>Contenido</strong> {{ out.content}}
-                        <strong>Created:</strong> {{ out.createdAt|date("d/m/Y H:i:s") }}
-                        <strong>Updated:</strong> {{ out.updatedAt|date("d/m/Y H:i:s") }}
+                    <div class="section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4>Destinatario:<a href="{{ path('app_products_byUser', {'username': out.users2.username}) }}"> {{ out.users2.username}}</a>
+                                    </h4>
+                                    <h4>Motivo: {{ out.issue}}</h4>
+                                    <h4>Contenido:</h4>
+                                    <p>{{ out.content}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
             </div>
 

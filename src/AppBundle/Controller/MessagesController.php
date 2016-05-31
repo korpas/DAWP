@@ -86,7 +86,8 @@ class MessagesController extends Controller
                 $p->setUsers($this->getUser());
                 $m->persist($p);
                 $m->flush();
-                return $this->redirectToRoute('app_products_index');
+                $this->addFlash('messages', 'Mensaje enviado');
+                return $this->redirectToRoute('app_messages_insert');
             }
         }
         return $this->render(':messages:insert.html.twig', [
@@ -105,7 +106,7 @@ class MessagesController extends Controller
         $m = $this->getDoctrine()->getManager();
         $m->remove($messages);
         $m->flush();
-        $this->addFlash('messages', 'Eliminado');
+        $this->addFlash('messages', 'Mensaje eliminado');
         return $this->redirectToRoute('app_messages_index');
     }
     /**
