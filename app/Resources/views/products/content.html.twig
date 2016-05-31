@@ -17,8 +17,8 @@
                 <div class="section">
                     <div class="container">
                         <div class="row">
-                            <div class="col-lg-2 img-hover ">
-                                <img class="img-responsive img-rounded" alt="10x10" src="/images/upload/{{ product.imageName }}" title="{{ product.prodFile }}">
+                            <div class="col-lg-2 ">
+                                <img class="img-responsive" alt="10x10" src="/images/upload/{{ product.imageName }}" title="{{ product.prodFile }}">
                             </div>
                             <div class="col-md-4">
                                 <h5>Propietario: <a href="{{ path('app_products_byUser', {'username': product.owner.username}) }}">@{{ product.owner }}</a></h5>
