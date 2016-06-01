@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block headTitle %}Categorias{% endblock %}
+{% block headTitle %}Categorías{% endblock %}
 
 {% block body %}
     <h1>Categorias</h1>
@@ -18,7 +18,7 @@
     {% if is_granted('ROLE_ADMIN') %}
         {% if is_granted('ROLE_USER') %}
             <div>
-            <a class="btn btn-warning btn-xxl" href="{{ path('app_category_insert')}}">Insertar Categoria</a>
+            <a class="btn btn-warning btn-xxl" href="{{ path('app_category_insert')}}">Insertar Categoría</a>
             </div>
                 {% endif %}
 
